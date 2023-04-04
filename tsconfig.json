@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES6",
+    "lib": ["ES6", "ES2022"],
     "module": "ES6",
     "moduleResolution": "Node",
     "outDir": "./dist",
@@ -20,7 +21,7 @@
     "strictBindCallApply": true,
     // linter rules
     "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": true
   },
   "include": ["./src"],
   "exclude": ["node_modules"]
