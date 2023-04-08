@@ -11,6 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     // strict rules
     "alwaysStrict": true,
     "noImplicitAny": true,

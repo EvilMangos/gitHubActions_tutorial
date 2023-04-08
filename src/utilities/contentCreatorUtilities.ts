@@ -1,4 +1,5 @@
 import { ICell, IMap, ISize } from "../interfaces/map.interface";
+import { IContentCreatorUtilities } from "../interfaces/utilities.interface";
 
 const emptyCell: ICell = {
   value: 0,
@@ -6,7 +7,7 @@ const emptyCell: ICell = {
   isOpen: false,
 };
 
-export class ContentCreatorUtilities {
+export class ContentCreatorUtilities implements IContentCreatorUtilities {
   getEmptyMap(size: ISize): IMap {
     const map: IMap = [];
     for (let row = 0; row < size.height; row++) {
