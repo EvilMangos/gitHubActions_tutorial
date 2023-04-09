@@ -1,8 +1,12 @@
-import { IMap, ISize } from "./map.interface";
+import { ICellCoordinates, IMap, ISize } from "./map.interface";
 
 export interface IContentCreatorUtilities {
   getEmptyMap(size: ISize): IMap;
-  getMinesPositions(size: ISize, minesCount: number): number[];
+  getMinesPositions(
+    size: ISize,
+    minesCount: number,
+    openCellCoordinates: ICellCoordinates
+  ): number[];
   getMapFilledByMines(map: IMap, minesPositions: number[]): IMap;
   getMapFilledByNumbers(map: IMap): IMap;
 }

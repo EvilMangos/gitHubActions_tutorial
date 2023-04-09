@@ -1,32 +1,31 @@
-import { ICell, IMap, ISize } from "../interfaces/map.interface";
+import { ICellCoordinates, IMap, ISize } from "../interfaces/map.interface";
 import { IContentCreator } from "../interfaces/components.interface";
 import { ContentCreatorUtilities } from "../utilities/contentCreatorUtilities";
 
-class ContentCreator implements IContentCreator {
+export class ContentCreator implements IContentCreator {
   private readonly contentCreatorUtilities = new ContentCreatorUtilities();
 
   private readonly size: ISize;
   private readonly minesCount: number;
-  private readonly openCell: ICell;
   private map: IMap;
 
-  constructor(size: ISize, minesCount: number, openCell: ICell) {
+  constructor(size: ISize, minesCount: number) {
     this.size = size;
-    this.openCell = openCell;
     this.minesCount = minesCount;
     this.map = this.contentCreatorUtilities.getEmptyMap(this.size);
   }
 
-  createContent(): IMap {
-    this.createMines();
+  createContent(openCellCoordinates: ICellCoordinates): IMap {
+    this.createMines(openCellCoordinates);
     this.createNumbers();
     return this.map;
   }
 
-  createMines(): void {
+  createMines(openCellCoordinates: ICellCoordinates): void {
     const minesPositions = this.contentCreatorUtilities.getMinesPositions(
       this.size,
-      this.minesCount
+      this.minesCount,
+      openCellCoordinates
     );
     this.map = this.contentCreatorUtilities.getMapFilledByMines(
       this.map,

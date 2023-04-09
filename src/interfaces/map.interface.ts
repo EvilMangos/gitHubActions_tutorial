@@ -6,6 +6,11 @@ export interface ICell {
 
 export type IMap = Array<Array<ICell>>;
 
+export interface ICellCoordinates {
+  row: number;
+  column: number;
+}
+
 export interface ISize {
   width: number;
   height: number;

@@ -1,5 +1,15 @@
-import { ICell, IMap, ISize } from "../interfaces/map.interface";
+import {
+  ICell,
+  ICellCoordinates,
+  IMap,
+  ISize,
+} from "../interfaces/map.interface";
 import { IContentCreatorUtilities } from "../interfaces/utilities.interface";
+import {
+  cloneMap,
+  getCoordinatesOfCellsAround,
+  getCoordinatesOfExistenceCellsAround,
+} from "../utils";
 
 const emptyCell: ICell = {
   value: 0,
@@ -19,11 +29,22 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
     }
     return map;
   }
-  getMinesPositions(size: ISize, minesCount: number): number[] {
+  getMinesPositions(
+    size: ISize,
+    minesCount: number,
+    openCellCoordinates: ICellCoordinates
+  ): number[] {
     const cellsCount = size.width * size.height;
     const arrayWithRandomNumbers = this.getArrayWithRandomNumbers(cellsCount);
+    const positionsOfUnallowedCells = this.getPositionsOfUnallowedCells(
+      openCellCoordinates,
+      size
+    );
+    const updatedArrayWithRandomNumbers = arrayWithRandomNumbers.map(
+      (value, index) => (positionsOfUnallowedCells.includes(index) ? 0 : value)
+    );
     const sortedFieldCellsRow: number[] = new Array(
-      ...arrayWithRandomNumbers
+      ...updatedArrayWithRandomNumbers
     ).sort((a, b) => b - a);
     const mines = sortedFieldCellsRow.slice(0, minesCount);
     return mines.map((value) => arrayWithRandomNumbers.indexOf(value));
@@ -35,8 +56,26 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
     return array;
   }
 
+  getPositionsOfUnallowedCells(
+    openCellCoordinates: ICellCoordinates,
+    size: ISize
+  ) {
+    const unallowedCells = getCoordinatesOfCellsAround(
+      openCellCoordinates.row,
+      openCellCoordinates.column
+    );
+    const existenceUnallowedCells = unallowedCells.filter(
+      (value) =>
+        value.column > 0 &&
+        value.column < size.width &&
+        value.row > 0 &&
+        value.row < size.height
+    );
+    return existenceUnallowedCells.map((value) => value.row * value.column);
+  }
+
   getMapFilledByMines(map: IMap, minesPositions: number[]): IMap {
-    const clonedMap = this.cloneMap(map);
+    const clonedMap = cloneMap(map);
     let count = 0;
     return clonedMap.map((row) => {
       return row.map((cell) => {
@@ -50,7 +89,7 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
   }
 
   getMapFilledByNumbers(map: IMap): IMap {
-    const clonedMap = this.cloneMap(map);
+    const clonedMap = cloneMap(map);
     for (let row = 0; row < clonedMap.length; row++) {
       for (let column = 0; column < clonedMap[row].length; column++) {
         if (clonedMap[row][column].isMine) {
@@ -62,36 +101,17 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
   }
 
   increaseValueOfCellsAround(map: IMap, row: number, column: number): void {
-    const coordinatesOfCellsAround = [
-      { row: row - 1, column: column - 1 },
-      { row: row - 1, column },
-      { row: row - 1, column: column + 1 },
-      { row, column: column + 1 },
-      { row: row + 1, column: column + 1 },
-      { row: row + 1, column },
-      { row: row + 1, column: column - 1 },
-      { row, column: column - 1 },
-    ];
+    const coordinatesOfCellsAround = getCoordinatesOfExistenceCellsAround(
+      map,
+      row,
+      column
+    );
     coordinatesOfCellsAround.forEach((coordinates) =>
       this.increaseCellValue(map, coordinates.row, coordinates.column)
     );
   }
 
-  increaseCellValue(map: IMap, column: number, row: number): void {
-    if (this.isCellExist(map, column, row)) {
-      map[row][column].value++;
-    }
-  }
-  isCellExist(map: IMap, column: number, row: number): boolean {
-    if (map[column]) {
-      if (map[row]) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  cloneMap(map: IMap): IMap {
-    return map.map((row) => new Array(...row));
+  increaseCellValue(map: IMap, row: number, column: number): void {
+    map[row][column].value++;
   }
 }
