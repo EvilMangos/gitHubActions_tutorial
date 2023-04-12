@@ -16,6 +16,15 @@ export function getCoordinatesOfCellsAround(
   ];
 }
 
+export function isCellExist(map: IMap, row: number, column: number): boolean {
+  if (map[row]) {
+    if (map[row][column]) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export function getCoordinatesOfExistenceCellsAround(
   map: IMap,
   row: number,
@@ -25,17 +34,4 @@ export function getCoordinatesOfExistenceCellsAround(
   return coordinates.filter((value) =>
     isCellExist(map, value.row, value.column)
   );
-}
-
-export function isCellExist(map: IMap, row: number, column: number): boolean {
-  if (map[column]) {
-    if (map[row]) {
-      return true;
-    }
-  }
-  return false;
-}
-
-export function cloneMap(map: IMap): IMap {
-  return map.map((row) => new Array(...row));
 }

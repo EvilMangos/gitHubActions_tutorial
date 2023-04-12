@@ -6,7 +6,6 @@ import {
 } from "../interfaces/map.interface";
 import { IContentCreatorUtilities } from "../interfaces/utilities.interface";
 import {
-  cloneMap,
   getCoordinatesOfCellsAround,
   getCoordinatesOfExistenceCellsAround,
 } from "../utils";
@@ -23,7 +22,7 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
     for (let row = 0; row < size.height; row++) {
       const emptyRow: ICell[] = [];
       for (let cell = 0; cell < size.width; cell++) {
-        emptyRow.push(emptyCell);
+        emptyRow.push(structuredClone(emptyCell));
       }
       map.push(emptyRow);
     }
@@ -75,28 +74,30 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
   }
 
   getMapFilledByMines(map: IMap, minesPositions: number[]): IMap {
-    const clonedMap = cloneMap(map);
+    const clonedMap = structuredClone(map);
     let count = 0;
-    return clonedMap.map((row) => {
-      return row.map((cell) => {
+    return clonedMap.map((row) =>
+      row.map((cell) => {
         if (minesPositions.includes(count)) {
           cell.isMine = true;
         }
         count++;
         return cell;
-      });
-    });
+      })
+    );
   }
 
   getMapFilledByNumbers(map: IMap): IMap {
-    const clonedMap = cloneMap(map);
-    for (let row = 0; row < clonedMap.length; row++) {
-      for (let column = 0; column < clonedMap[row].length; column++) {
-        if (clonedMap[row][column].isMine) {
-          this.increaseValueOfCellsAround(map, row, column);
+    const clonedMap = structuredClone(map);
+
+    clonedMap.forEach((row, rowIndex) => {
+      row.forEach((cell, columnIndex) => {
+        if (cell.isMine) {
+          this.increaseValueOfCellsAround(clonedMap, rowIndex, columnIndex);
         }
-      }
-    }
+      });
+    });
+
     return clonedMap;
   }
 
@@ -112,6 +113,6 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
   }
 
   increaseCellValue(map: IMap, row: number, column: number): void {
-    map[row][column].value++;
+    if (!map[row][column].isMine) map[row][column].value++;
   }
 }

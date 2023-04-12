@@ -18,6 +18,6 @@
     "no-template-curly-in-string": "warn",
     "no-unused-private-class-members": "error",
     "no-use-before-define": "error",
-    "ban-ts-comment": "never"
+    "ban-ts-comment": "off"
   }
 }
