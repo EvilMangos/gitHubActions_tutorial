@@ -1,18 +1,17 @@
 import { ICellCoordinates, IMap } from "../interfaces/map.interface";
 
 export function getCoordinatesOfCellsAround(
-  row: number,
-  column: number
+  cellCoordinates: ICellCoordinates
 ): ICellCoordinates[] {
   return [
-    { row: row - 1, column: column - 1 },
-    { row: row - 1, column },
-    { row: row - 1, column: column + 1 },
-    { row, column: column + 1 },
-    { row: row + 1, column: column + 1 },
-    { row: row + 1, column },
-    { row: row + 1, column: column - 1 },
-    { row, column: column - 1 },
+    { row: cellCoordinates.row - 1, column: cellCoordinates.column - 1 },
+    { row: cellCoordinates.row - 1, column: cellCoordinates.column },
+    { row: cellCoordinates.row - 1, column: cellCoordinates.column + 1 },
+    { row: cellCoordinates.row, column: cellCoordinates.column + 1 },
+    { row: cellCoordinates.row + 1, column: cellCoordinates.column + 1 },
+    { row: cellCoordinates.row + 1, column: cellCoordinates.column },
+    { row: cellCoordinates.row + 1, column: cellCoordinates.column - 1 },
+    { row: cellCoordinates.row, column: cellCoordinates.column - 1 },
   ];
 }
 
@@ -27,10 +26,9 @@ export function isCellExist(map: IMap, row: number, column: number): boolean {
 
 export function getCoordinatesOfExistenceCellsAround(
   map: IMap,
-  row: number,
-  column: number
+  cellCoordinates: ICellCoordinates
 ) {
-  const coordinates = getCoordinatesOfCellsAround(row, column);
+  const coordinates = getCoordinatesOfCellsAround(cellCoordinates);
   return coordinates.filter((value) =>
     isCellExist(map, value.row, value.column)
   );

@@ -45,11 +45,10 @@ describe("ContentCreator class", () => {
 
       row.forEach((cell, columnIndex) => {
         if (!cell.isMine) {
-          const coordinates = getCoordinatesOfExistenceCellsAround(
-            map,
-            rowIndex,
-            columnIndex
-          );
+          const coordinates = getCoordinatesOfExistenceCellsAround(map, {
+            row: rowIndex,
+            column: columnIndex,
+          });
 
           let value = 0;
           coordinates.forEach((coordinate) => {
