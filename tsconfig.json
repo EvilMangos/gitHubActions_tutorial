@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
     "target": "ES6",
+    "lib": ["ES6", "ES2022"],
     "module": "ES6",
     "moduleResolution": "Node",
     "outDir": "./dist",
-    
+
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     // strict rules
     "alwaysStrict": true,
     "noImplicitAny": true,
@@ -20,7 +23,7 @@
     "strictBindCallApply": true,
     // linter rules
     "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": true
   },
   "include": ["./src"],
   "exclude": ["node_modules"]

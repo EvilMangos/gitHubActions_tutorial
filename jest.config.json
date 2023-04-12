@@ -1,0 +1,15 @@
+{
+  "clearMocks": true,
+  "resetMocks": true,
+  "restoreMocks": true,
+  "resetModules": true,
+  "errorOnDeprecated": true,
+
+  "testEnvironment": "node",
+  "testMatch": [
+    "**/test/unit-tests/**/*.unit-test.ts"
+  ],
+  "transform": {
+    "^.+\\.[t|j]sx?$": "ts-jest"
+  }
+}
