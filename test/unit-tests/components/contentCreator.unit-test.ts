@@ -39,8 +39,10 @@ describe("ContentCreator class", () => {
 
   it("createContent correct values", () => {
     const result: number[][] = [];
+
     map.forEach((row, rowIndex) => {
       result.push([]);
+
       row.forEach((cell, columnIndex) => {
         if (!cell.isMine) {
           const coordinates = getCoordinatesOfExistenceCellsAround(
@@ -48,6 +50,7 @@ describe("ContentCreator class", () => {
             rowIndex,
             columnIndex
           );
+
           let value = 0;
           coordinates.forEach((coordinate) => {
             if (map[coordinate.row][coordinate.column].isMine) {

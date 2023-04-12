@@ -89,7 +89,6 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
 
   getMapFilledByNumbers(map: IMap): IMap {
     const clonedMap = structuredClone(map);
-
     clonedMap.forEach((row, rowIndex) => {
       row.forEach((cell, columnIndex) => {
         if (cell.isMine) {
