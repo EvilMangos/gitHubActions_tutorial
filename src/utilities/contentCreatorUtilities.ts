@@ -31,12 +31,12 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
   getMinesPositions(
     size: ISize,
     minesCount: number,
-    cellCoordinates: ICellCoordinates
+    openCellCoordinates: ICellCoordinates
   ): number[] {
     const cellsCount = size.width * size.height;
     const arrayWithRandomNumbers = this.getArrayWithRandomNumbers(cellsCount);
     const positionsOfUnallowedCells = this.getPositionsOfUnallowedCells(
-      cellCoordinates,
+      openCellCoordinates,
       size
     );
     const updatedArrayWithRandomNumbers = arrayWithRandomNumbers.map(
