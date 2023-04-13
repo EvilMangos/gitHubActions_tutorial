@@ -55,14 +55,8 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
     return array;
   }
 
-  getPositionsOfUnallowedCells(
-    openCellCoordinates: ICellCoordinates,
-    size: ISize
-  ) {
-    const unallowedCells = getCoordinatesOfCellsAround(
-      openCellCoordinates.row,
-      openCellCoordinates.column
-    );
+  getPositionsOfUnallowedCells(cellCoordinates: ICellCoordinates, size: ISize) {
+    const unallowedCells = getCoordinatesOfCellsAround(cellCoordinates);
     const existenceUnallowedCells = unallowedCells.filter(
       (value) =>
         value.column > 0 &&
@@ -92,7 +86,10 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
     clonedMap.forEach((row, rowIndex) => {
       row.forEach((cell, columnIndex) => {
         if (cell.isMine) {
-          this.increaseValueOfCellsAround(clonedMap, rowIndex, columnIndex);
+          this.increaseValueOfCellsAround(clonedMap, {
+            row: rowIndex,
+            column: columnIndex,
+          });
         }
       });
     });
@@ -100,18 +97,21 @@ export class ContentCreatorUtilities implements IContentCreatorUtilities {
     return clonedMap;
   }
 
-  increaseValueOfCellsAround(map: IMap, row: number, column: number): void {
+  increaseValueOfCellsAround(
+    map: IMap,
+    cellCoordinates: ICellCoordinates
+  ): void {
     const coordinatesOfCellsAround = getCoordinatesOfExistenceCellsAround(
       map,
-      row,
-      column
+      cellCoordinates
     );
     coordinatesOfCellsAround.forEach((coordinates) =>
-      this.increaseCellValue(map, coordinates.row, coordinates.column)
+      this.increaseCellValue(map, coordinates)
     );
   }
 
-  increaseCellValue(map: IMap, row: number, column: number): void {
-    if (!map[row][column].isMine) map[row][column].value++;
+  increaseCellValue(map: IMap, cellCoordinates: ICellCoordinates): void {
+    if (!map[cellCoordinates.row][cellCoordinates.column].isMine)
+      map[cellCoordinates.row][cellCoordinates.column].value++;
   }
 }

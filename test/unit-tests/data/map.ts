@@ -1,223 +1,198 @@
-import { IMap } from "../../../src/interfaces/map.interface";
+import { ICell, IMap } from "../../../src/interfaces/map.interface";
+
+const mineCell: ICell = {
+  value: 0,
+  isMine: true,
+  isOpen: false,
+};
+
+const closeCell = (value: number) => ({
+  value,
+  isMine: false,
+  isOpen: false,
+});
+
+const openCell = (value: number) => ({
+  value,
+  isMine: false,
+  isOpen: true,
+});
 
 export const winMap: IMap = [
-  [
-    {
-      value: 0,
-      isMine: true,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: true,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: true,
-      isOpen: false,
-    },
-    {
-      value: 1,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-  ],
-  [
-    {
-      value: 2,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 3,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 2,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 1,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-  ],
-  [
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-  ],
-  [
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
-  ],
+  [mineCell, mineCell, mineCell, openCell(1), openCell(0)],
+  [openCell(2), openCell(3), openCell(2), openCell(1), openCell(0)],
+  [openCell(0), openCell(0), openCell(0), openCell(0), openCell(0)],
+  [openCell(0), openCell(0), openCell(0), openCell(0), openCell(0)],
 ];
 
 export const notWinMap: IMap = [
+  [mineCell, mineCell, mineCell, openCell(1), openCell(0)],
+  [openCell(2), openCell(3), openCell(2), openCell(1), closeCell(0)],
+  [closeCell(0), closeCell(0), closeCell(0), closeCell(0), closeCell(0)],
+  [closeCell(0), closeCell(0), closeCell(0), closeCell(0), closeCell(0)],
+];
+export const midGameMap1Move: IMap = [
   [
-    {
-      value: 0,
-      isMine: true,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: true,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: true,
-      isOpen: false,
-    },
-    {
-      value: 1,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: true,
-    },
+    mineCell,
+    mineCell,
+    closeCell(1),
+    closeCell(1),
+    closeCell(2),
+    mineCell,
+    closeCell(1),
+    closeCell(0),
   ],
   [
-    {
-      value: 2,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 3,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 2,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 1,
-      isMine: false,
-      isOpen: true,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
+    closeCell(2),
+    closeCell(2),
+    closeCell(1),
+    closeCell(1),
+    mineCell,
+    closeCell(2),
+    closeCell(1),
+    closeCell(0),
   ],
   [
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
+    closeCell(0),
+    closeCell(0),
+    closeCell(1),
+    closeCell(2),
+    closeCell(2),
+    closeCell(1),
+    closeCell(0),
+    closeCell(0),
   ],
   [
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
-    {
-      value: 0,
-      isMine: false,
-      isOpen: false,
-    },
+    closeCell(0),
+    closeCell(1),
+    closeCell(3),
+    mineCell,
+    closeCell(2),
+    closeCell(0),
+    closeCell(0),
+    closeCell(0),
+  ],
+  [
+    closeCell(1),
+    closeCell(2),
+    mineCell,
+    mineCell,
+    closeCell(3),
+    closeCell(1),
+    closeCell(1),
+    closeCell(0),
+  ],
+  [
+    mineCell,
+    openCell(2),
+    openCell(2),
+    openCell(3),
+    closeCell(3),
+    mineCell,
+    closeCell(1),
+    closeCell(0),
+  ],
+  [
+    openCell(1),
+    openCell(1),
+    openCell(0),
+    openCell(1),
+    mineCell,
+    closeCell(2),
+    closeCell(1),
+    closeCell(0),
+  ],
+  [
+    openCell(0),
+    openCell(0),
+    openCell(0),
+    openCell(1),
+    closeCell(1),
+    closeCell(1),
+    closeCell(0),
+    closeCell(0),
+  ],
+];
+
+export const midGameMap2Move: IMap = [
+  [
+    mineCell,
+    mineCell,
+    closeCell(1),
+    closeCell(1),
+    closeCell(2),
+    mineCell,
+    openCell(1),
+    openCell(0),
+  ],
+  [
+    closeCell(2),
+    closeCell(2),
+    closeCell(1),
+    closeCell(1),
+    mineCell,
+    openCell(2),
+    openCell(1),
+    openCell(0),
+  ],
+  [
+    closeCell(0),
+    closeCell(0),
+    closeCell(1),
+    closeCell(2),
+    openCell(2),
+    openCell(1),
+    openCell(0),
+    openCell(0),
+  ],
+  [
+    closeCell(0),
+    closeCell(1),
+    closeCell(3),
+    mineCell,
+    openCell(2),
+    openCell(0),
+    openCell(0),
+    openCell(0),
+  ],
+  [
+    closeCell(1),
+    closeCell(2),
+    mineCell,
+    mineCell,
+    openCell(3),
+    openCell(1),
+    openCell(1),
+    openCell(0),
+  ],
+  [
+    mineCell,
+    openCell(2),
+    openCell(2),
+    openCell(3),
+    closeCell(3),
+    mineCell,
+    openCell(1),
+    openCell(0),
+  ],
+  [
+    openCell(1),
+    openCell(1),
+    openCell(0),
+    openCell(1),
+    mineCell,
+    openCell(2),
+    openCell(1),
+    openCell(0),
+  ],
+  [
+    openCell(0),
+    openCell(0),
+    openCell(0),
+    openCell(1),
+    closeCell(1),
+    openCell(1),
+    openCell(0),
+    openCell(0),
   ],
 ];

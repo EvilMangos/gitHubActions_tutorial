@@ -8,3 +8,7 @@ export interface IRules {
   isLoose(cell: ICell): boolean;
   isWin(map: IMap): boolean;
 }
+
+export interface IMapService {
+  openArea(cell: ICellCoordinates): void;
+}
