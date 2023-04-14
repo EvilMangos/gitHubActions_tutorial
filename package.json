@@ -18,7 +18,7 @@
   "scripts": {
     "prettier": "prettier --write src test",
     "eslint": "npx eslint --fix src test",
-    "unit:test": "jest --config jest.config.json"
+    "unit-test": "jest --config jest.config.json"
   },
   "repository": {
     "type": "git",

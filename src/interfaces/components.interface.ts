@@ -1,7 +1,8 @@
-import { ICell, ICellCoordinates, IMap } from "./map.interface";
+import { ICell, ICellCoordinates, IMap, IResult } from "./map.interface";
 
 export interface IContentCreator {
   createContent(openCellCoordinates: ICellCoordinates): IMap;
+  getEmptyMap(): IMap;
 }
 
 export interface IRules {
@@ -10,5 +11,10 @@ export interface IRules {
 }
 
 export interface IMapService {
-  openArea(cell: ICellCoordinates): void;
+  openArea(cell: ICellCoordinates): IMap;
+  getCell(cellCoordinates: ICellCoordinates): ICell;
+}
+
+export interface IGame {
+  doMove(cell: ICellCoordinates): IResult;
 }

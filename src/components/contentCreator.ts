@@ -36,4 +36,8 @@ export class ContentCreator implements IContentCreator {
   createNumbers(): void {
     this.map = this.contentCreatorUtilities.getMapFilledByNumbers(this.map);
   }
+
+  getEmptyMap(): IMap {
+    return structuredClone(this.map);
+  }
 }
