@@ -1,4 +1,5 @@
-import { ICell, ICellCoordinates, IMap, IResult } from "./map.interface";
+import { ICell, ICellCoordinates, IMap } from "./map.interface";
+import { IResult, IStoreGame } from "./game.interface";
 
 export interface IContentCreator {
   createContent(openCellCoordinates: ICellCoordinates): IMap;
@@ -17,4 +18,10 @@ export interface IMapService {
 
 export interface IGame {
   doMove(cell: ICellCoordinates): IResult;
+}
+
+export interface IStorage {
+  loadGame(): IStoreGame;
+  saveGame(game: IStoreGame): void;
+  checkNotFinishedGame(): boolean;
 }

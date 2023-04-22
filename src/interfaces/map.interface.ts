@@ -15,9 +15,3 @@ export interface ISize {
   width: number;
   height: number;
 }
-
-export interface IResult {
-  map: IMap;
-  isWin: boolean;
-  isLoose: boolean;
-}
