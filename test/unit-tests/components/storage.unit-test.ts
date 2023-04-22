@@ -17,10 +17,12 @@ describe("Storage class", () => {
     });
   });
 
-  it("saveGame", async () => {
-    await Storage.saveGame(inputData);
-    const result = await loadGame();
-    await expect(JSON.stringify(result)).toBe(JSON.stringify(inputData));
+  describe("saveGame", () => {
+    it("success save game", async () => {
+      await Storage.saveGame(inputData);
+      const result = await loadGame();
+      await expect(JSON.stringify(result)).toBe(JSON.stringify(inputData));
+    });
   });
 
   describe("loadGame", () => {
