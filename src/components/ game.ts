@@ -28,20 +28,24 @@ export class Game implements IGame {
     return this.contentCreator.getEmptyMap();
   }
 
-  isNotFinishedGame(): { isNotFinishedGame: boolean } {
-    return { isNotFinishedGame: this.storage.checkNotFinishedGame() };
+  async isNotFinishedGame(): Promise<{ isNotFinishedGame: boolean }> {
+    return { isNotFinishedGame: await this.storage.checkNotFinishedGame() };
   }
 
-  continueGame(): IStoreGame {
+  async continueGame(): Promise<IStoreGame> {
     return this.storage.loadGame();
   }
-  doMove(cell: ICellCoordinates): IResult {
+  async doMove(cell: ICellCoordinates, timer: number): Promise<IResult> {
     if (!this.mapIsCreated) {
       this.mapService = new MapService(this.contentCreator.createContent(cell));
     }
     const map = this.mapService.openArea(cell);
     const isLoose = this.rules.isLoose(this.mapService.getCell(cell));
     const isWin = this.rules.isWin(map);
+
+    if (!isLoose && !isWin) {
+      await this.storage.saveGame({ map, timer });
+    }
 
     return {
       isLoose,

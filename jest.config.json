@@ -9,6 +9,7 @@
   "testMatch": [
     "**/test/unit-tests/**/*.unit-test.ts"
   ],
+  "setupFiles": ["<rootDir>/src/utils/loadEnv.ts"],
   "transform": {
     "^.+\\.[t|j]sx?$": "ts-jest"
   }

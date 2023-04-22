@@ -1,41 +1,52 @@
+import * as fs from "fs";
+
 import { IStoreGame } from "../interfaces/game.interface";
-import { midGameMap1Move } from "../../test/unit-tests/data/map";
 import { IStorage } from "../interfaces/components.interface";
 
-class Storage implements IStorage {
-  storage: IStorage;
-  constructor(storage: IStorage) {
-    this.storage = storage;
-  }
-  loadGame(): IStoreGame {
-    return this.storage.loadGame();
-  }
-  saveGame(game: IStoreGame): void {
-    return this.storage.saveGame(game);
-  }
-  checkNotFinishedGame(): boolean {
-    return this.storage.checkNotFinishedGame();
-  }
-}
-
 class FileStorage implements IStorage {
-  loadGame(): IStoreGame {
-    return {
-      map: midGameMap1Move,
-      timer: 10,
-    };
+  private readonly path: string;
+
+  constructor(path: string) {
+    this.path = path;
+  }
+  async init(): Promise<void> {
+    try {
+      await fs.promises.open(this.path, "w");
+    } catch (err) {
+      console.log(err.message);
+      process.exit(0);
+    }
+  }
+  async loadGame(): Promise<IStoreGame> {
+    const data = await fs.promises.readFile(this.path, {
+      encoding: "utf-8",
+    });
+    return JSON.parse(data.toString());
   }
 
-  saveGame(game: IStoreGame): void {
+  async saveGame(game: IStoreGame): Promise<void> {
+    await fs.promises.writeFile(this.path, JSON.stringify(game), {
+      encoding: "utf-8",
+    });
     return;
   }
 
-  checkNotFinishedGame(): boolean {
-    return false;
+  async checkNotFinishedGame(): Promise<boolean> {
+    return new Promise((resolve) => {
+      fs.exists(this.path, function (exists) {
+        resolve(exists);
+      });
+    });
+  }
+
+  async deleteGame(): Promise<void> {
+    await fs.promises.unlink(this.path);
   }
 }
 
-const fileStorage = new FileStorage();
-const storage = new Storage(fileStorage);
+const fileStorage = new FileStorage(
+  process.env["DATA_PATH"] || "data/data.txt"
+);
+fileStorage.init();
 
-export { storage as Storage };
+export { fileStorage as Storage };
