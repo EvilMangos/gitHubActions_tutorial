@@ -17,11 +17,12 @@ export interface IMapService {
 }
 
 export interface IGame {
-  doMove(cell: ICellCoordinates): IResult;
+  doMove(cell: ICellCoordinates, timer: number): Promise<IResult>;
 }
 
 export interface IStorage {
-  loadGame(): IStoreGame;
-  saveGame(game: IStoreGame): void;
-  checkNotFinishedGame(): boolean;
+  loadGame(): Promise<IStoreGame>;
+  saveGame(game: IStoreGame): Promise<void>;
+  checkNotFinishedGame(): Promise<boolean>;
+  deleteGame(): Promise<void>;
 }

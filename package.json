@@ -11,14 +11,15 @@
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.36.0",
-    "prettier": "^2.8.7",
     "jest": "^29.5.0",
-    "ts-jest": "^29.1.0"
+    "prettier": "^2.8.7",
+    "ts-jest": "^29.1.0",
+    "dotenv": "^16.0.3"
   },
   "scripts": {
     "prettier": "prettier --write src test",
     "eslint": "npx eslint --fix src test",
-    "unit-test": "jest --config jest.config.json"
+    "unit-test": "NODE_ENV=unit-test jest --config jest.config.json"
   },
   "repository": {
     "type": "git",
