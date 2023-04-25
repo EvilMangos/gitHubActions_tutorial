@@ -1,5 +1,6 @@
 import {
   IContentCreator,
+  ICrypto,
   IGame,
   IMapService,
   IRules,
@@ -12,6 +13,7 @@ import { ContentCreator } from "./contentCreator";
 import { MapService } from "./mapService";
 import { Rules } from "./rules";
 import { Storage } from "./storage";
+import { Crypto } from "./crypto";
 
 export class Game implements IGame {
   private mapIsCreated = false;
@@ -23,6 +25,7 @@ export class Game implements IGame {
 
   private readonly rules: IRules = Rules;
   private readonly storage: IStorage = Storage;
+  private readonly cryptoService: ICrypto = Crypto;
   startGame(size: ISize, minesCount: number): IMap {
     this.contentCreator = new ContentCreator(size, minesCount);
     return this.contentCreator.getEmptyMap();
@@ -33,7 +36,10 @@ export class Game implements IGame {
   }
 
   async continueGame(): Promise<IStoreGame> {
-    return this.storage.loadGame();
+    const data = await this.storage.loadGame();
+    const [encrypted, iv] = data.split("\n");
+    const decrypted = this.cryptoService.decrypt(encrypted, iv);
+    return JSON.parse(decrypted);
   }
   async doMove(cell: ICellCoordinates, timer: number): Promise<IResult> {
     if (!this.mapIsCreated) {
@@ -44,7 +50,11 @@ export class Game implements IGame {
     const isWin = this.rules.isWin(map);
 
     if (!isLoose && !isWin) {
-      await this.storage.saveGame({ map, timer });
+      const encrypted = this.cryptoService.encrypt(
+        JSON.stringify({ map, timer })
+      );
+      const data = encrypted.data + "\n" + encrypted.iv;
+      await this.storage.saveGame(data);
     }
 
     return {

@@ -1,6 +1,5 @@
 import * as fs from "fs";
 
-import { IStoreGame } from "../interfaces/game.interface";
 import { IStorage } from "../interfaces/components.interface";
 
 class FileStorage implements IStorage {
@@ -17,15 +16,14 @@ class FileStorage implements IStorage {
       process.exit(0);
     }
   }
-  async loadGame(): Promise<IStoreGame> {
-    const data = await fs.promises.readFile(this.path, {
+  async loadGame(): Promise<string> {
+    return fs.promises.readFile(this.path, {
       encoding: "utf-8",
     });
-    return JSON.parse(data.toString());
   }
 
-  async saveGame(game: IStoreGame): Promise<void> {
-    await fs.promises.writeFile(this.path, JSON.stringify(game), {
+  async saveGame(data: string): Promise<void> {
+    await fs.promises.writeFile(this.path, JSON.stringify(data), {
       encoding: "utf-8",
     });
     return;

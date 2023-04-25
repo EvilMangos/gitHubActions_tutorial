@@ -6,7 +6,7 @@ describe("Storage class", () => {
 
   describe("checkNotFinishedGame", () => {
     it("game exists", async () => {
-      await saveGame(inputData);
+      await saveGame(JSON.stringify(inputData));
       const result = await Storage.checkNotFinishedGame();
       expect(result).toBe(true);
       await deleteGame();
@@ -19,17 +19,17 @@ describe("Storage class", () => {
 
   describe("saveGame", () => {
     it("success save game", async () => {
-      await Storage.saveGame(inputData);
+      await Storage.saveGame(JSON.stringify(inputData));
       const result = await loadGame();
-      await expect(JSON.stringify(result)).toBe(JSON.stringify(inputData));
+      await expect(result).toBe(JSON.stringify(inputData));
     });
   });
 
   describe("loadGame", () => {
     it("success load game", async () => {
-      await saveGame(inputData);
+      await saveGame(JSON.stringify(inputData));
       const result = await Storage.loadGame();
-      expect(JSON.stringify(result)).toBe(JSON.stringify(inputData));
+      expect(result).toBe(JSON.stringify(inputData));
       await deleteGame();
     });
   });
