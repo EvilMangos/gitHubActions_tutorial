@@ -1,5 +1,5 @@
 import { ICell, ICellCoordinates, IMap } from "./map.interface";
-import { IResult } from "./game.interface";
+import { IResult, IStoreGame } from "./game.interface";
 
 export interface IContentCreator {
   createContent(openCellCoordinates: ICellCoordinates): IMap;
@@ -21,8 +21,8 @@ export interface IGame {
 }
 
 export interface IStorage {
-  loadGame(): Promise<string>;
-  saveGame(data: string): Promise<void>;
+  loadGame(): Promise<IStoreGame>;
+  saveGame(data: IStoreGame): Promise<void>;
   checkNotFinishedGame(): Promise<boolean>;
   deleteGame(): Promise<void>;
 }
