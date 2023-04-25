@@ -6,7 +6,11 @@ import {
   IStorage,
 } from "../interfaces/components.interface";
 import { ICellCoordinates, IMap, ISize } from "../interfaces/map.interface";
-import { IResult, IStoreGame } from "../interfaces/game.interface";
+import {
+  IMoveRespond,
+  IScores,
+  IStoreGame,
+} from "../interfaces/game.interface";
 
 import { ContentCreator } from "./contentCreator";
 import { MapService } from "./mapService";
@@ -35,7 +39,7 @@ export class Game implements IGame {
   async continueGame(): Promise<IStoreGame> {
     return this.storage.loadGame();
   }
-  async doMove(cell: ICellCoordinates, timer: number): Promise<IResult> {
+  async doMove(cell: ICellCoordinates, timer: number): Promise<IMoveRespond> {
     if (!this.mapIsCreated) {
       this.mapService = new MapService(this.contentCreator.createContent(cell));
     }
@@ -52,5 +56,9 @@ export class Game implements IGame {
       isWin,
       map,
     };
+  }
+
+  async getScores(): Promise<IScores> {
+    return this.storage.loadScore;
   }
 }
