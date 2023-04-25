@@ -10,3 +10,11 @@ export interface IContentCreatorUtilities {
   getMapFilledByMines(map: IMap, minesPositions: number[]): IMap;
   getMapFilledByNumbers(map: IMap): IMap;
 }
+
+export interface IStorageUtilities {
+  init(): Promise<void>;
+  load(): Promise<string>;
+  save(data: string): Promise<void>;
+  checkExistence(): Promise<boolean>;
+  delete(): Promise<void>;
+}

@@ -22,7 +22,12 @@ export interface IGame {
 
 export interface IStorage {
   loadGame(): Promise<IStoreGame>;
-  saveGame(game: IStoreGame): Promise<void>;
+  saveGame(data: IStoreGame): Promise<void>;
   checkNotFinishedGame(): Promise<boolean>;
   deleteGame(): Promise<void>;
+}
+
+export interface ICrypto {
+  encrypt(data: string): { iv: string; data: string };
+  decrypt(encryptedString: string, ivString: string): string;
 }
