@@ -1,5 +1,5 @@
 import { ICell, ICellCoordinates, IMap, ISize } from "./map.interface";
-import {IMoveRespond, IScore, IScores, IStoreGame} from "./game.interface";
+import { IMoveRespond, IScore, IScores, IStoreGame } from "./game.interface";
 
 export interface IContentCreator {
   createContent(openCellCoordinates: ICellCoordinates): IMap;
