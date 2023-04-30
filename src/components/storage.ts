@@ -1,6 +1,6 @@
 import { ICrypto, IStorage } from "../interfaces/components.interface";
 import { Crypto } from "./crypto";
-import { IStoreGame } from "../interfaces/game.interface";
+import {IScore, IScores, IStoreGame} from "../interfaces/game.interface";
 import { FilesStorage } from "../utilities/filesStorage";
 import { IStorageUtilities } from "../interfaces/utilities.interface";
 
@@ -50,6 +50,23 @@ class Storage implements IStorage {
   extractEncryptedDataForUse(encrypted: string) {
     const [data, iv] = encrypted.split("\n");
     return { data, iv };
+  }
+
+  async loadScores(): Promise<IScores> {
+    const data = await this.storage.load(this.pathScores);
+    const encrypted = this.extractEncryptedDataForUse(data);
+    const decrypted = this.cryptoService.decrypt(encrypted.data, encrypted.iv);
+    return JSON.parse(decrypted);
+  }
+
+  async saveScore(data: IScore): Promise<void> {
+    const encrypted = this.cryptoService.encrypt(JSON.stringify(data));
+    const formattedData = this.formatEncryptedDataForSave(
+        encrypted.data,
+        encrypted.iv
+    );
+    await this.storage.save(this.pathScores, formattedData);
+    return;
   }
 }
 

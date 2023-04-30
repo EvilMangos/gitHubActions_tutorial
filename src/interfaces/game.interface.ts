@@ -11,7 +11,7 @@ export interface IStoreGame {
   timer: number;
 }
 
-interface IScore {
+export interface IScore {
   name: string;
   score: number;
 }

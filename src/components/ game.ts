@@ -51,6 +51,10 @@ export class Game implements IGame {
       await this.storage.saveGame({ map, timer });
     }
 
+    if (isWin) {
+      await this.storage.saveScore({ name: "test", score: 20 });
+    }
+
     return {
       isLoose,
       isWin,
@@ -59,6 +63,6 @@ export class Game implements IGame {
   }
 
   async getScores(): Promise<IScores> {
-    return this.storage.loadScore;
+    return this.storage.loadScores();
   }
 }

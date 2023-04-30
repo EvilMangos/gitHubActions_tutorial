@@ -26,15 +26,14 @@ class FilesStorage implements IStorageUtilities {
   }
 
   async checkExistence(path: string): Promise<boolean> {
-    return new Promise((resolve) => {
-      fs.exists(path, function (exists) {
-        resolve(exists);
-      });
+    const data = await fs.promises.readFile(path, {
+      encoding: "utf-8",
     });
+    return !!data;
   }
 
   async delete(path: string): Promise<void> {
-    await fs.promises.unlink(path);
+    await fs.promises.truncate(path);
   }
 }
 
