@@ -1,20 +1,18 @@
 import * as fs from "fs";
 
-const PATH = process.env["DATA_PATH"] || "data/data.txt";
-
-export async function saveGame(data: string) {
-  await fs.promises.writeFile(PATH, data, {
+export async function saveData(path: string, data: string) {
+  await fs.promises.writeFile(path, data, {
     encoding: "utf-8",
   });
 }
 
-export async function loadGame() {
-  const data = await fs.promises.readFile(PATH, {
+export async function loadData(path: string) {
+  const data = await fs.promises.readFile(path, {
     encoding: "utf-8",
   });
   return JSON.parse(data);
 }
 
-export async function deleteGame() {
-  await fs.promises.unlink(PATH);
+export async function deleteData(path: string) {
+  await fs.promises.truncate(path);
 }

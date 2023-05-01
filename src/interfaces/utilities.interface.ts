@@ -12,9 +12,8 @@ export interface IContentCreatorUtilities {
 }
 
 export interface IStorageUtilities {
-  init(): Promise<void>;
-  load(): Promise<string>;
-  save(data: string): Promise<void>;
-  checkExistence(): Promise<boolean>;
-  delete(): Promise<void>;
+  load(path: string): Promise<string>;
+  save(path: string, data: string): Promise<void>;
+  checkExistence(path: string): Promise<boolean>;
+  delete(path: string): Promise<void>;
 }

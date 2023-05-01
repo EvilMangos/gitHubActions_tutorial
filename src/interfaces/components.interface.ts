@@ -1,5 +1,5 @@
-import { ICell, ICellCoordinates, IMap } from "./map.interface";
-import { IResult, IStoreGame } from "./game.interface";
+import { ICell, ICellCoordinates, IMap, ISize } from "./map.interface";
+import { IMoveRespond, IScore, IScores, IStoreGame } from "./game.interface";
 
 export interface IContentCreator {
   createContent(openCellCoordinates: ICellCoordinates): IMap;
@@ -17,7 +17,8 @@ export interface IMapService {
 }
 
 export interface IGame {
-  doMove(cell: ICellCoordinates, timer: number): Promise<IResult>;
+  startGame(size: ISize, minesCount: number): IMap;
+  doMove(cell: ICellCoordinates, timer: number): Promise<IMoveRespond>;
 }
 
 export interface IStorage {
@@ -25,6 +26,8 @@ export interface IStorage {
   saveGame(data: IStoreGame): Promise<void>;
   checkNotFinishedGame(): Promise<boolean>;
   deleteGame(): Promise<void>;
+  loadScores(): Promise<IScores>;
+  saveScore(data: IScore): Promise<void>;
 }
 
 export interface ICrypto {

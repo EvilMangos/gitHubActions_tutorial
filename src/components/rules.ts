@@ -11,7 +11,7 @@ class Rules implements IRules {
       const row = map[rowIndex];
       for (let columnIndex = 0; columnIndex < row.length; columnIndex++) {
         const cell = row[columnIndex];
-        if (!cell.isMine && !cell.isOpen) {
+        if (+!cell.isMine && !cell.isOpen) {
           return false;
         }
       }
