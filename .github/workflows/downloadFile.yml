@@ -1,6 +1,7 @@
-jobs:
-  on: push
+name: download file ba
+on: push
 
+jobs:
   example1:
     name: save output
     steps:
