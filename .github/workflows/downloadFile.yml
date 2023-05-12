@@ -1,5 +1,5 @@
 jobs:
-  name: 'download file ba'
+  name: download file ba
   on: push
 
   example1:
