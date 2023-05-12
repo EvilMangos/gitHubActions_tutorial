@@ -1,26 +1,26 @@
-name: download file ba
-on: push
-
-jobs:
-  example1:
-    name: save output
-    runs-on: ubuntu-latest
-    steps:
-      - shell: bash
-        run: | 
-          expr 1 + 1 > output.log
-      - name: upload output file
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-log-file
-          path: output.log
-
-  example2:
-    name: download output
-    needs: example1
-    runs-on: ubuntu-latest
-    steps:
-      - name: download output 2
-        uses: actions/download-artifact@v3
-        with:
-          name: output-log-file
+#name: download file ba
+#on: push
+#
+#jobs:
+#  example1:
+#    name: save output
+#    runs-on: ubuntu-latest
+#    steps:
+#      - shell: bash
+#        run: |
+#          expr 1 + 1 > output.log
+#      - name: upload output file
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: output-log-file
+#          path: output.log
+#
+#  example2:
+#    name: download output
+#    needs: example1
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: download output 2
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: output-log-file
