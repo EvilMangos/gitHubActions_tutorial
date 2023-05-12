@@ -4,6 +4,7 @@ on: push
 jobs:
   example1:
     name: save output
+    runs-on: ubuntu-latest
     steps:
       - shell: bash
         run: | 
@@ -17,6 +18,7 @@ jobs:
   example2:
     name: download output
     needs: example1
+    runs-on: ubuntu-latest
     steps:
       - name: download output 2
         uses: actions/download-artifact@3
