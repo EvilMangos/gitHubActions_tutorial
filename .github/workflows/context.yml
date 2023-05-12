@@ -2,8 +2,9 @@ name: context
 on: push
 
 jobs:
-  if: ${{ github.ref === 'refs/heads/main' }}
-  runs-on: ubuntu-latest
-  steps:
-    - run: echo "text $GITHUB_REF"
-    - run: ${{ github.ref }}
+  example:
+    if: ${{ github.ref === 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "text $GITHUB_REF"
+      - run: ${{ github.ref }}
