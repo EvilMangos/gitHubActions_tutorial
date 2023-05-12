@@ -1,4 +1,7 @@
 jobs:
+  name: 'download file ba'
+  on: push
+
   example1:
     name: save output
     steps:
